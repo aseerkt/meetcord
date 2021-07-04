@@ -8,6 +8,8 @@ import configPassport from './config/passport';
 
 // Importing routes
 import authRoutes from './routes/auth';
+import roomRoutes from './routes/room';
+import guestRoutes from './routes/guest';
 
 configPassport(passport);
 
@@ -44,5 +46,7 @@ app.use(passport.session());
 // Routes
 
 app.use('/auth', authRoutes);
+app.use('/api/rooms', roomRoutes);
+app.use('/api/guest', guestRoutes);
 
 export default app;

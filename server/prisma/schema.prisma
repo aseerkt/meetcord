@@ -18,7 +18,21 @@ model User {
   displayName String
 }
 
-model Room {
-  id String @id @default(uuid()) @db.Uuid
+model GuestUser {
+  id       String @id @default(uuid()) @db.Uuid
+  username String
+}
 
+model GuestRoom {
+  id       String         @id @default(uuid()) @db.Uuid
+  name     String
+  messages GuestMessage[]
+}
+
+model GuestMessage {
+  id       String    @id @default(uuid()) @db.Uuid
+  username String
+  text     String
+  roomId   String    @db.Uuid
+  room     GuestRoom @relation(fields: [roomId], references: [id])
 }

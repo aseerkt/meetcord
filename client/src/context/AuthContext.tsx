@@ -26,8 +26,8 @@ const AuthProvider: React.FC = ({ children }) => {
       });
       setLoading(false);
     } catch (err) {
-      setAlert({ message: 'Please log in to continue', severity: 'info' });
-      setLoading(true);
+      // setAlert({ message: 'Please log in to continue', severity: 'info' });
+      setLoading(false);
     }
   };
 

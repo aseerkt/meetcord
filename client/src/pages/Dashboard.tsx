@@ -5,6 +5,7 @@ import {
   MessageSection,
   MessageHeader,
   MessageBoard,
+  UserSection,
 } from '../layouts/PageLayouts';
 import SidebarHeader from '../shared/SidebarHeader';
 
@@ -19,6 +20,7 @@ const Dashboard = () => {
         <MessageHeader>Welcome @{user?.username}</MessageHeader>
         <MessageBoard></MessageBoard>
       </MessageSection>
+      <UserSection></UserSection>
     </PageLayout>
   );
 };

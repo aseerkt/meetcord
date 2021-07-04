@@ -30,7 +30,7 @@ export const MessageHeader = styled.header`
   display: flex;
   align-items: center;
   box-shadow: var(--box-shadow);
-  padding-left: 0.5rem;
+  padding-left: 1rem;
 `;
 
 export const MessageBoard = styled.div`
@@ -39,4 +39,9 @@ export const MessageBoard = styled.div`
   overflow: auto;
   flex-direction: column;
   justify-content: flex-end;
+`;
+
+export const UserSection = styled.div`
+  width: 240px;
+  background-color: var(--background-secondary);
 `;

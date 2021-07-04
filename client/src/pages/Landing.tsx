@@ -1,4 +1,4 @@
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { API_URL } from '../config/constants';
 import { useAuthCtx } from '../context/AuthContext';
@@ -56,20 +56,38 @@ const LandingLayout = styled.div`
       }
     }
 
-    .login-btn {
+    .btn {
+      min-width: 9rem;
       border: none;
       outline: none;
       width: max-content;
       padding: 0.8rem;
       color: #fff;
-      background-color: #222;
       cursor: pointer;
       font-weight: 700;
       transition: all 0.3s ease;
 
       &:hover {
         border-radius: 0.3rem;
+      }
+    }
+
+    .login-btn {
+      background-color: #222;
+
+      &:hover {
+        border-radius: 0.3rem;
         background-color: #000;
+      }
+    }
+
+    .guest-btn {
+      margin-top: 1rem;
+
+      background-color: #111;
+
+      &:hover {
+        border-radius: 0.3rem;
       }
     }
   }
@@ -95,7 +113,14 @@ const LandingLayout = styled.div`
 
 const Landing = () => {
   const { user } = useAuthCtx();
-  const handleLogin = () => {
+  const history = useHistory();
+  const handleLogin: React.MouseEventHandler<HTMLButtonElement> | undefined = (
+    e,
+  ) => {
+    if (e.currentTarget.classList.contains('guest-btn')) {
+      history.push('/guest-login');
+      return;
+    }
     window.open(`${API_URL}/auth/github`, '_self');
   };
 
@@ -107,12 +132,16 @@ const Landing = () => {
         <MeetupIcon />
       </div>
       <div className='right-intro'>
-        <h1>Connect with devs</h1>
+        <h1>Time to Chill!</h1>
         <h3>
           Join Meet<span>Cord</span> today
         </h3>
-        <button className='login-btn' onClick={handleLogin}>
+        <button className='btn login-btn' onClick={handleLogin}>
           Login with Github
+        </button>
+
+        <button className='btn guest-btn' onClick={handleLogin}>
+          Login as Guest
         </button>
       </div>
     </LandingLayout>
