@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
+import AlertProvider from './context/AlertContext';
+import AuthProvider from './context/AuthContext';
+import Dashboard from './pages/Dashboard';
+import DM from './pages/DM';
+import Landing from './pages/Landing';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AlertProvider>
+        <AuthProvider>
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <PrivateRoute exact path='/channels/@me' component={Dashboard} />
+            <PrivateRoute exact path='/channels/@me/:roomId' component={DM} />
+          </Switch>
+        </AuthProvider>
+      </AlertProvider>
+    </BrowserRouter>
   );
 }
 

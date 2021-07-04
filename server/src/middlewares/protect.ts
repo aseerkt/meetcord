@@ -6,7 +6,7 @@ export default function protect(
   next: NextFunction,
 ) {
   if (!req.user) {
-    return res.status(401).json({ message: 'Not Authorized' });
+    return res.status(401).json({ message: 'Not Authenticated' });
   }
   return next();
 }

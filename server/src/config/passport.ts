@@ -2,6 +2,7 @@ import { PassportStatic, Profile } from 'passport';
 import { Strategy as GithubStrategy } from 'passport-github2';
 import { SERVER_URL } from './constants';
 import prisma from './prisma';
+import passport from 'passport';
 
 export default function configPassport(passport: PassportStatic) {
   passport.use(
@@ -14,6 +15,7 @@ export default function configPassport(passport: PassportStatic) {
       },
       async function (_: any, __: any, profile: Profile, done: Function) {
         try {
+          console.log('Made it into passport');
           const user = await prisma.user.upsert({
             create: {
               username: profile.username!,
@@ -39,12 +41,12 @@ export default function configPassport(passport: PassportStatic) {
     done(null, user.providerId);
   });
 
-  passport.deserializeUser(async function (id: string, done) {
-    try {
-      const user = await prisma.user.findUnique({ where: { providerId: id } });
-      done(null, user);
-    } catch (err) {
-      done(err, false);
-    }
+  passport.deserializeUser(function (id: string, done) {
+    prisma.user
+      .findUnique({ where: { providerId: id } })
+      .then((user) => {
+        done(null, user);
+      })
+      .catch((err) => done(err, null));
   });
 }
