@@ -1,5 +1,7 @@
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { API_URL } from '../config/constants';
+import { useAuthCtx } from '../context/AuthContext';
 import { ReactComponent as MeetupIcon } from '../shared/meetup.svg';
 
 const LandingLayout = styled.div`
@@ -92,9 +94,12 @@ const LandingLayout = styled.div`
 `;
 
 const Landing = () => {
+  const { user } = useAuthCtx();
   const handleLogin = () => {
     window.open(`${API_URL}/auth/github`, '_self');
   };
+
+  if (user) return <Redirect to='/channels/@me' />;
 
   return (
     <LandingLayout>

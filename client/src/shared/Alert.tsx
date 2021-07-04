@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import {
   AlertState,
@@ -47,6 +48,13 @@ const AlertLayouts = styled.div<AlertProps>`
 const Alert = () => {
   const { message, severity } = useAlertState();
   const { clearAlert } = useAlertDispatch();
+
+  useEffect(() => {
+    if (message) {
+      setTimeout(clearAlert, 3000);
+    }
+  });
+
   const AlertIcon = () => (
     <FontAwesomeIcon
       className='alert-icon'

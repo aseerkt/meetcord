@@ -2,7 +2,6 @@ import { PassportStatic, Profile } from 'passport';
 import { Strategy as GithubStrategy } from 'passport-github2';
 import { SERVER_URL } from './constants';
 import prisma from './prisma';
-import passport from 'passport';
 
 export default function configPassport(passport: PassportStatic) {
   passport.use(
